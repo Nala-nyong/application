@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>검도 단체전 참가 신청서</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #c31432 0%, #240b36 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.8em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .form-content {
+            padding: 40px;
+        }
+        
+        .dojo-section {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+        
+        .dojo-section h2 {
+            color: #d63031;
+            margin-bottom: 20px;
+            font-size: 1.6em;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #2d3436;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .input-group input:focus {
+            outline: none;
+            border-color: #c31432;
+            box-shadow: 0 0 0 3px rgba(195, 20, 50, 0.1);
+        }
+        
+        .participants-section {
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            font-size: 1.8em;
+            color: #2d3436;
+            margin-bottom: 25px;
+            padding: 15px;
+            background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%);
+            color: white;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .participant-card {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .participant-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.15);
+        }
+        
+        .participant-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 10px 15px;
+            background: linear-gradient(135deg, #636e72 0%, #2d3436 100%);
+            color: white;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+        
+        .basic-info {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1.5fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .form-field {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-field label {
+            font-size: 0.9em;
+            color: #636e72;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
+        .form-field input, .form-field select {
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 15px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-field input:focus, .form-field select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .tournament-section {
+            margin-top: 25px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .tournament-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #2d3436;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .toggle-section {
+            margin-bottom: 20px;
+        }
+        
+        .toggle-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .toggle-option {
+            position: relative;
+        }
+        
+        .toggle-option input[type="radio"] {
+            display: none;
+        }
+        
+        .toggle-label {
+            display: inline-block;
+            padding: 8px 16px;
+            background: #e9ecef;
+            border: 2px solid #dee2e6;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .toggle-option input[type="radio"]:checked + .toggle-label {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+        }
+        
+        .toggle-label:hover {
+            background: #dee2e6;
+        }
+        
+        .toggle-option input[type="radio"]:checked + .toggle-label:hover {
+            background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+        }
+        
+        .position-section {
+            margin-top: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+        }
+        
+        .position-title {
+            font-weight: bold;
+            color: #495057;
+            margin-bottom: 10px;
+        }
+        
+        .three-person .toggle-label {
+            background: #e8f5e8;
+            border-color: #c3e6c3;
+        }
+        
+        .three-person .toggle-option input[type="radio"]:checked + .toggle-label {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            border-color: #28a745;
+        }
+        
+        .seven-person .toggle-label {
+            background: #e8f4fd;
+            border-color: #b3d7f7;
+        }
+        
+        .seven-person .toggle-option input[type="radio"]:checked + .toggle-label {
+            background: linear-gradient(135deg, #007bff 0%, #6610f2 100%);
+            border-color: #007bff;
+        }
+        
+        .submit-section {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #c31432 0%, #240b36 100%);
+            color: white;
+            padding: 18px 50px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.3em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(195, 20, 50, 0.4);
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(195, 20, 50, 0.6);
+        }
+        
+        .add-participant-btn {
+            background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .add-participant-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 184, 148, 0.4);
+        }
+        
+        .remove-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-left: auto;
+        }
+        
+        .remove-btn:hover {
+            background: #c0392b;
+        }
+        
+        @media (max-width: 768px) {
+            .basic-info {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .toggle-group {
+                flex-direction: column;
+            }
+            
+            .form-content {
+                padding: 20px;
+            }
+        }
+        
+        .success-message {
+            display: none;
+            background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚔️ 검도 단체전 참가 신청서</h1>
+            <p>3인조 & 7인조 통합 신청</p>
+        </div>
+        
+        <div class="form-content">
+            <div class="dojo-section">
+                <h2>🏛️ 도장 정보</h2>
+                <div class="input-group">
+                    <label for="dojo-name">도장명 *</label>
+                    <input type="text" id="dojo-name" name="dojo-name" placeholder="도장 이름을 입력하세요" required>
+                </div>
+                <div class="input-group">
+                    <label for="contact-person">담당자명</label>
+                    <input type="text" id="contact-person" name="contact-person" placeholder="담당자 이름을 입력하세요">
+                </div>
+                <div class="input-group">
+                    <label for="contact-phone">연락처</label>
+                    <input type="tel" id="contact-phone" name="contact-phone" placeholder="연락 가능한 전화번호">
+                </div>
+            </div>
+
+            <form id="kendo-form">
+                <div class="participants-section">
+                    <h2 class="section-title">참가 선수 등록</h2>
+                    
+                    <button type="button" class="add-participant-btn" onclick="addParticipant()">
+                        ➕ 선수 추가
+                    </button>
+                    
+                    <div id="participants-container">
+                        <!-- 참가자 카드들이 여기에 동적으로 추가됩니다 -->
+                    </div>
+                </div>
+
+                <div class="submit-section">
+                    <button type="submit" class="submit-btn">신청서 제출하기</button>
+                    <div id="success-message" class="success-message">
+                        신청서가 성공적으로 제출되었습니다!
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // 구글 앱스 스크립트 웹앱 URL (배포 후 실제 URL로 교체 필요)
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzzUpkO9kyjWF6g_8rgUlXui4A-Tm_toOhtPoPbDszlDqmSG0_gUkTxSezH-ayRTlbUHQ/exec';
+        
+        let participantCount = 0;
+        
+        // 페이지 로드 시 첫 번째 참가자 추가
+        document.addEventListener('DOMContentLoaded', function() {
+            addParticipant();
+        });
+        
+        function addParticipant() {
+            participantCount++;
+            const container = document.getElementById('participants-container');
+            
+            const participantCard = document.createElement('div');
+            participantCard.className = 'participant-card';
+            participantCard.id = `participant-${participantCount}`;
+            
+            participantCard.innerHTML = `
+                <div class="participant-header">
+                    <span>선수 ${participantCount}</span>
+                    ${participantCount > 1 ? `<button type="button" class="remove-btn" onclick="removeParticipant(${participantCount})">삭제</button>` : ''}
+                </div>
+                
+                <div class="basic-info">
+                    <div class="form-field">
+                        <label>선수명 *</label>
+                        <input type="text" name="participant-${participantCount}-name" placeholder="이름을 입력하세요" required>
+                    </div>
+                    <div class="form-field">
+                        <label>성별 *</label>
+                        <select name="participant-${participantCount}-gender" required>
+                            <option value="">선택</option>
+                            <option value="남">남</option>
+                            <option value="여">여</option>
+                        </select>
+                    </div>
+                    <div class="form-field">
+                        <label>생년월일 *</label>
+                        <input type="date" name="participant-${participantCount}-birth" required>
+                    </div>
+                </div>
+                
+                <div class="tournament-section">
+                    <div class="tournament-title">🥉 3인조 참가</div>
+                    
+                    <div class="toggle-section three-person">
+                        <div class="toggle-group">
+                            <div class="toggle-option">
+                                <input type="radio" id="participant-${participantCount}-3team-none" name="participant-${participantCount}-3team" value="참가하지않음" checked>
+                                <label for="participant-${participantCount}-3team-none" class="toggle-label">참가하지않음</label>
+                            </div>
+                            <div class="toggle-option">
+                                <input type="radio" id="participant-${participantCount}-3team-youth" name="participant-${participantCount}-3team" value="청소년">
+                                <label for="participant-${participantCount}-3team-youth" class="toggle-label">청소년</label>
+                            </div>
+                            <div class="toggle-option">
+                                <input type="radio" id="participant-${participantCount}-3team-women" name="participant-${participantCount}-3team" value="여자부">
+                                <label for="participant-${participantCount}-3team-women" class="toggle-label">여자부</label>
+                            </div>
+                            <div class="toggle-option">
+                                <input type="radio" id="participant-${participantCount}-3team-men" name="participant-${participantCount}-3team" value="남자부">
+                                <label for="participant-${participantCount}-3team-men" class="toggle-label">남자부</label>
+                            </div>
+                        </div>
+                        
+                        <div class="position-section">
+                            <div class="position-title">포지션 선택</div>
+                            <div class="toggle-group">
+                                <div class="toggle-option">
+                                    <input type="radio" id="participant-${participantCount}-3pos-seonbong" name="participant-${participantCount}-3position" value="선봉">
+                                    <label for="participant-${participantCount}-3pos-seonbong" class="toggle-label">선봉</label>
+                                </div>
+                                <div class="toggle-option">
+                                    <input type="radio" id="participant-${participantCount}-3pos-jung" name="participant-${participantCount}-3position" value="중견">
+                                    <label for="participant-${participantCount}-3pos-jung" class="toggle-label">중견</label>
+                                </div>
+                                <div class="toggle-option">
+                                    <input type="radio" id="participant-${participantCount}-3pos-jujang" name="participant-${participantCount}-3position" value="주장">
+                                    <label for="participant-${participantCount}-3pos-jujang" class="toggle-label">주장</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tournament-section">
+                    <div class="tournament-title">🏆 7인조 참가</div>
+                    
+                    <div class="toggle-section seven-person">
+                        <div class="toggle-group">
+                            <div class="toggle-option">
+                                <input type="radio" id="participant-${participantCount}-7team-none" name="participant-${participantCount}-7team" value="참가하지않음" checked>
+                                <label for="participant-${participantCount}-7team-none" class="toggle-label">참가하지않음</label>
+                            </div>
+                            <div class="toggle-option">
+                                <input type="radio" id="participant-${participantCount}-7team-yes" name="participant-${participantCount}-7team" value="참가">
+                                <label for="participant-${participantCount}-7team-yes" class="toggle-label">참가</label>
+                            </div>
+                        </div>
+                        
+                        <div class="position-section">
+                            <div class="position-title">포지션 선택</div>
+                            <div class="toggle-group">
+                                <div class="toggle-option">
+                                    <input type="radio" id="participant-${participantCount}-7pos-seonbong" name="participant-${participantCount}-7position" value="선봉">
+                                    <label for="participant-${participantCount}-7pos-seonbong" class="toggle-label">선봉</label>
+                                </div>
+                                <div class="toggle-option">
+                                    <input type="radio" id="participant-${participantCount}-7pos-2" name="participant-${participantCount}-7position" value="2위">
+                                    <label for="participant-${participantCount}-7pos-2" class="toggle-label">2위</label>
+                                </div>
+                                <div class="toggle-option">
+                                    <input type="radio" id="participant-${participantCount}-7pos-3" name="participant-${participantCount}-7position" value="3위">
+                                    <label for="participant-${participantCount}-7pos-3" class="toggle-label">3위</label>
+                                </div>
+                                <div class="toggle-option">
+                                    <input type="radio" id="participant-${participantCount}-7pos-jung" name="participant-${participantCount}-7position" value="중견">
+                                    <label for="participant-${participantCount}-7pos-jung" class="toggle-label">중견</label>
+                                </div>
+                                <div class="toggle-option">
+                                    <input type="radio" id="participant-${participantCount}-7pos-5" name="participant-${participantCount}-7position" value="5위">
+                                    <label for="participant-${participantCount}-7pos-5" class="toggle-label">5위</label>
+                                </div>
+                                <div class="toggle-option">
+                                    <input type="radio" id="participant-${participantCount}-7pos-bujang" name="participant-${participantCount}-7position" value="부장">
+                                    <label for="participant-${participantCount}-7pos-bujang" class="toggle-label">부장</label>
+                                </div>
+                                <div class="toggle-option">
+                                    <input type="radio" id="participant-${participantCount}-7pos-jujang" name="participant-${participantCount}-7position" value="주장">
+                                    <label for="participant-${participantCount}-7pos-jujang" class="toggle-label">주장</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            container.appendChild(participantCard);
+        }
+        
+        function removeParticipant(id) {
+            const participantCard = document.getElementById(`participant-${id}`);
+            if (participantCard) {
+                participantCard.remove();
+            }
+        }
+        
+        // 폼 제출 처리
+        document.getElementById('kendo-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const dojoName = document.getElementById('dojo-name').value;
+            const contactPerson = document.getElementById('contact-person').value;
+            const contactPhone = document.getElementById('contact-phone').value;
+            
+            if (!dojoName) {
+                alert('도장명을 입력해주세요.');
+                return;
+            }
+            
+            // 참가자 데이터 수집
+            const participants = [];
+            const participantCards = document.querySelectorAll('.participant-card');
+            
+            participantCards.forEach((card, index) => {
+                const participantId = card.id.split('-')[1];
+                const name = formData.get(`participant-${participantId}-name`);
+                const gender = formData.get(`participant-${participantId}-gender`);
+                const birth = formData.get(`participant-${participantId}-birth`);
+                const team3 = formData.get(`participant-${participantId}-3team`);
+                const position3 = formData.get(`participant-${participantId}-3position`);
+                const team7 = formData.get(`participant-${participantId}-7team`);
+                const position7 = formData.get(`participant-${participantId}-7position`);
+                
+                if (name && gender && birth) {
+                    participants.push({
+                        name,
+                        gender,
+                        birthDate: birth,
+                        team3,
+                        position3: position3 || '',
+                        team7,
+                        position7: position7 || ''
+                    });
+                }
+            });
+            
+            if (participants.length === 0) {
+                alert('최소 한 명의 참가자 정보를 입력해주세요.');
+                return;
+            }
+            
+            const submissionData = {
+                timestamp: new Date().toISOString(),
+                dojoName,
+                contactPerson,
+                contactPhone,
+                participants
+            };
+            
+            // 실제 구글 시트로 데이터 전송
+            submitToGoogleSheets(submissionData);
+        });
+        
+        function submitToGoogleSheets(data) {
+            const submitBtn = document.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
+            
+            // 로딩 상태 표시
+            submitBtn.textContent = '제출 중...';
+            submitBtn.disabled = true;
+            
+            // 구글 앱스 스크립트로 데이터 전송
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+                mode: 'no-cors' // CORS 문제 해결
+            })
+            .then(() => {
+                // no-cors 모드에서는 응답을 확인할 수 없으므로 성공으로 간주
+                showSuccess();
+                console.log('데이터 전송 완료:', data);
+            })
+            .catch(error => {
+                console.error('전송 오류:', error);
+                alert('데이터 전송 중 오류가 발생했습니다. 다시 시도해주세요.');
+            })
+            .finally(() => {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            });
+        }
+        
+        function showSuccess() {
+            document.getElementById('success-message').style.display = 'block';
+            document.getElementById('success-message').scrollIntoView({ behavior: 'smooth' });
+            
+            // 3초 후 폼 초기화 여부 묻기
+            setTimeout(() => {
+                if (confirm('새로운 신청서를 작성하시겠습니까?')) {
+                    location.reload();
+                }
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
