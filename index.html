@@ -225,6 +225,7 @@
             background: white;
             border-radius: 8px;
             border: 1px solid #dee2e6;
+            transition: all 0.3s ease;
         }
         
         .position-title {
@@ -387,8 +388,8 @@
     </div>
 
     <script>
-        // 구글 앱스 스크립트 웹앱 URL (배포 후 실제 URL로 교체 필요)
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzS84Ty3JoqY163nw_P-VkZyl5BOJgGbMT1sJMkpVUYxHA7u33cKCP3x03DO3Mb-jpveQ/exec';
+        // 구글 앱스 스크립트 웹앱 URL (실제 URL로 교체하세요!)
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx4E-WLdxwin11IvHkgBb4-JGaD6e7v6ElmUIf2Q_7rZNDGq8pL4YJDLBuGotyyLjaOIw/exec';
         
         let participantCount = 0;
         
@@ -474,7 +475,7 @@
                             </div>
                         </div>
                         
-                        <div class="position-section">
+                        <div class="position-section" id="position3-${participantCount}">
                             <div class="position-title">포지션 선택</div>
                             <div class="toggle-group">
                                 <div class="toggle-option">
@@ -509,7 +510,7 @@
                             </div>
                         </div>
                         
-                        <div class="position-section">
+                        <div class="position-section" id="position7-${participantCount}">
                             <div class="position-title">포지션 선택</div>
                             <div class="toggle-group">
                                 <div class="toggle-option">
@@ -547,6 +548,49 @@
             `;
             
             container.appendChild(participantCard);
+            
+            // 이벤트 리스너 추가 - 참가 상태 변경 시 포지션 영역 표시/숨김
+            setupParticipantEventListeners(participantCount);
+        }
+        
+        function setupParticipantEventListeners(participantId) {
+            // 3인조 참가 상태 변경 이벤트
+            const team3Radios = document.querySelectorAll(`input[name="participant-${participantId}-3team"]`);
+            const position3Section = document.getElementById(`position3-${participantId}`);
+            
+            team3Radios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    if (this.value === '참가하지않음') {
+                        position3Section.style.display = 'none';
+                        // 포지션 선택 초기화
+                        const position3Radios = document.querySelectorAll(`input[name="participant-${participantId}-3position"]`);
+                        position3Radios.forEach(pos => pos.checked = false);
+                    } else {
+                        position3Section.style.display = 'block';
+                    }
+                });
+            });
+            
+            // 7인조 참가 상태 변경 이벤트
+            const team7Radios = document.querySelectorAll(`input[name="participant-${participantId}-7team"]`);
+            const position7Section = document.getElementById(`position7-${participantId}`);
+            
+            team7Radios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    if (this.value === '참가하지않음') {
+                        position7Section.style.display = 'none';
+                        // 포지션 선택 초기화
+                        const position7Radios = document.querySelectorAll(`input[name="participant-${participantId}-7position"]`);
+                        position7Radios.forEach(pos => pos.checked = false);
+                    } else {
+                        position7Section.style.display = 'block';
+                    }
+                });
+            });
+            
+            // 초기 상태 설정 (참가하지않음이 기본 선택이므로 포지션 영역 숨김)
+            position3Section.style.display = 'none';
+            position7Section.style.display = 'none';
         }
         
         function removeParticipant(id) {
@@ -690,7 +734,7 @@
                 if (confirm('새로운 신청서를 작성하시겠습니까?')) {
                     location.reload();
                 }
-            }, 10000);
+            }, 3000);
         }
     </script>
 </body>
